@@ -20,7 +20,8 @@ add_executable(synth main.cpp
         view/MainWindow.cpp
         view/MainWindow.h
         model/AudioGenerator.cpp
-        model/AudioGenerator.h)
+        model/AudioGenerator.h
+        model/Parameters.h)
 
 
 if (APPLE)

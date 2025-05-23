@@ -6,6 +6,9 @@
 #define MAINWINDOW_H
 
 #include <SDL3/SDL.h>
+
+#include "../model/Parameters.h"
+
 class MainWindow {
     public :
         void init();
@@ -14,6 +17,8 @@ private:
     void draw();
     SDL_Window* window { nullptr };
     SDL_Renderer* renderer { nullptr };
+
+    Parameters _parameters;
 };
 
 #endif //MAINWINDOW_H

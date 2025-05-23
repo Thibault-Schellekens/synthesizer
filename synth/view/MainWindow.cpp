@@ -21,7 +21,7 @@ void MainWindow::init() {
     }
     // Create window with SDL_Renderer graphics context
     Uint32 window_flags = SDL_WINDOW_HIDDEN;
-    window = SDL_CreateWindow("", 384, 268, window_flags);
+    window = SDL_CreateWindow("", 800, 600, window_flags);
     if (nullptr == window) {
         SDL_Log("Error: SDL_CreateWindow(): %s\n", SDL_GetError());
         return;
@@ -104,8 +104,27 @@ void MainWindow::run() {
 }
 
 void MainWindow::draw() {
-    ImGui::Begin("My Window");
-    ImGui::Text("Hello Imgui");
+    ImGui::Begin("Synthesizer");
+
+    ImGui::Checkbox("Oscillator 1", &_parameters.osc1Enabled);
+    int waveform = static_cast<int>(_parameters.osc1Waveform);
+    if (ImGui::Combo("OSC1 Waveform", &waveform, "Sine\0Square\0Saw\0")) {
+        _parameters.osc1Waveform = static_cast<Waveform>(waveform);
+    }
+    ImGui::SliderFloat("Freq Offset OSC1", &_parameters.osc1FrequencyOffset, -5.0f, 5.0f);
+
+    ImGui::Checkbox("Oscillator 2", &_parameters.osc2Enabled);
+
+    ImGui::SliderFloat("Attack", &_parameters.attackTime, 0.0f, 1.0f);
+    ImGui::SliderFloat("Release", &_parameters.releaseTime, 0.0f, 2.0f);
+
+    ImGui::SliderFloat("Filter Cutoff", &_parameters.filterCutoff, 20.0f, 20000.0f);
+    ImGui::SliderFloat("Filter Resonance", &_parameters.filterResonance, 0.0f, 1.0f);
+
+    ImGui::SliderFloat("Delay Time", &_parameters.delayTime, 0.1f, 2.0f);
+    ImGui::SliderFloat("Delay Mix", &_parameters.delayMix, 0.0f, 1.0f);
+
+
     ImGui::End();
 }
 
