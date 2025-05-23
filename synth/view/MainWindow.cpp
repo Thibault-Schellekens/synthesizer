@@ -12,7 +12,7 @@
 constexpr float FRAMERATE = 60.0f;
 constexpr std::chrono::duration<double, std::milli> TARGET_FRAMETIME(1000.0 / FRAMERATE);
 
-MainWindow::MainWindow() {
+MainWindow::MainWindow(ParametersManager& parametersManager) :_parametersManager(parametersManager) {
     initKeyMap();
 }
 
@@ -163,6 +163,8 @@ void MainWindow::draw() {
     if (_parameters.note.has_value()) {
         ImGui::Text("You pressed note: %d", _parameters.note.value());
     }
+
+    _parametersManager.setParameters(_parameters);
 
     ImGui::End();
 }

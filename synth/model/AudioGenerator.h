@@ -6,11 +6,13 @@
 #define AUDIOGENERATOR_H
 
 #include "AudioBuffer.h"
+#include "Oscillator.h"
+#include "ParametersManager.h"
 #include "portaudio.h"
 
 class AudioGenerator {
 public:
-    AudioGenerator();
+    AudioGenerator(ParametersManager& parametersManager);
     void init();
 
 private:
@@ -20,10 +22,15 @@ private:
                               PaStreamCallbackFlags statusFlags,
                               void *userData );
     void generateAudio(float* outputBuffer, unsigned long framesPerBuffer);
+    void updateParameters();
 
     double currentTimeInSeconds {0.0};
 
+    ParametersManager& _parametersManager;
+
     AudioBuffer _audioBuffer;
+    Oscillator _oscillator1;
+    Oscillator _oscillator2;
 
 
 

@@ -1,13 +1,16 @@
 #include <iostream>
 
 #include "model/AudioGenerator.h"
+#include "model/ParametersManager.h"
 #include "view/MainWindow.h"
 
 int main() {
-    AudioGenerator audioGenerator;
+    ParametersManager parametersManager;
+
+    AudioGenerator audioGenerator(parametersManager);
     audioGenerator.init();
 
-    MainWindow mainWindow;
+    MainWindow mainWindow(parametersManager);
     mainWindow.init();
     mainWindow.run();
 

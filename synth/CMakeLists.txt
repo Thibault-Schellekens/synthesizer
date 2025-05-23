@@ -23,7 +23,11 @@ add_executable(synth main.cpp
         model/AudioGenerator.h
         model/Parameters.h
         model/AudioBuffer.h
-        model/constants.h)
+        model/Oscillator.cpp
+        model/Oscillator.h
+        model/constants.h
+        model/ParametersManager.cpp
+        model/ParametersManager.h)
 
 
 if (APPLE)

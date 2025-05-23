@@ -3,12 +3,16 @@
 //
 
 #include <iostream>
+#include <cmath>
 #include "AudioGenerator.h"
 
 #include "constants.h"
 
-AudioGenerator::AudioGenerator()
-: _audioBuffer(Constants::FRAMES_PER_BUFFER) {
+AudioGenerator::AudioGenerator(ParametersManager &parametersManager)
+: _parametersManager(parametersManager),
+  _audioBuffer(AudioBuffer(Constants::FRAMES_PER_BUFFER)),
+  _oscillator1(Oscillator(Waveform::SINE)),
+  _oscillator2(Oscillator(Waveform::SAW)) {
 }
 
 void AudioGenerator::init() {
@@ -54,12 +58,32 @@ int AudioGenerator::audioCallback(const void *inputBuffer,
     return 0;
 }
 
-void AudioGenerator::generateAudio(float* outputBuffer, unsigned long framesPerBuffer) {
+void AudioGenerator::generateAudio(float *outputBuffer, unsigned long framesPerBuffer) {
+    updateParameters();
 
     std::fill(_audioBuffer.buffer.begin(), _audioBuffer.buffer.end(), 0.0f);
 
+    _oscillator1.processAudioBuffer(_audioBuffer);
+    _oscillator2.processAudioBuffer(_audioBuffer);
+
     for (unsigned long i = 0; i < framesPerBuffer; ++i) {
-        *outputBuffer++ = 0.0f; // canal gauche
-        *outputBuffer++ = 0.0f; // canal droit
+        *outputBuffer++ = _audioBuffer.buffer[i]; // canal gauche
+        *outputBuffer++ = _audioBuffer.buffer[i]; // canal droit
+    }
+}
+
+void AudioGenerator::updateParameters() {
+    Parameters parameters = _parametersManager.getParameters();
+
+    _oscillator1.setEnabled(parameters.osc1Enabled);
+    _oscillator1.setWaveform(parameters.osc1Waveform);
+    _oscillator1.setFrequencyOffset(parameters.osc1FrequencyOffset);
+
+    _oscillator2.setEnabled(parameters.osc2Enabled);
+
+    if (parameters.note.has_value()) {
+        const float frequency = 220.0f * std::pow(2, (parameters.note.value() - 1) / 12.0);
+        _oscillator1.setFrequency(frequency);
+        _oscillator2.setFrequency(frequency);
     }
 }
