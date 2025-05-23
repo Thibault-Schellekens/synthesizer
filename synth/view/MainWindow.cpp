@@ -151,19 +151,17 @@ void MainWindow::draw() {
     ImGui::SliderFloat("Delay Mix", &_parameters.delayMix, 0.0f, 1.0f);
 
     ImGui::NewLine();
-    bool pressed {false};
     for (int i = 1; i <= 12; ++i) {
         ImGui::SameLine();
         ImGui::Button(std::to_string(i).c_str());
 
         if (ImGui::IsItemActive()) {
             _parameters.note = i;
-            pressed = true;
+        }
+        if (ImGui::IsItemDeactivated()) {
+            _parameters.note .reset();
         }
     }
-
-    if (!pressed && !_noteKeyDown)
-        _parameters.note.reset();
 
     if (_parameters.note.has_value()) {
         ImGui::Text("You pressed note: %d", _parameters.note.value());
@@ -175,8 +173,6 @@ void MainWindow::draw() {
 }
 
 void MainWindow::processKey(const SDL_KeyboardEvent &event, const bool keyDown) {
-    _noteKeyDown = keyDown;
-
     auto it = _keyMap.find(event.key);
 
     if (it != _keyMap.end()) {

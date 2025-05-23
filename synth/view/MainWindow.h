@@ -29,10 +29,6 @@ private:
     Parameters _parameters;
 
     std::map<SDL_Keycode, int> _keyMap;
-
-    bool _noteKeyDown {false};
-
-
 };
 
 #endif //MAINWINDOW_H
