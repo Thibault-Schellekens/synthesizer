@@ -12,8 +12,29 @@
 constexpr float FRAMERATE = 60.0f;
 constexpr std::chrono::duration<double, std::milli> TARGET_FRAMETIME(1000.0 / FRAMERATE);
 
-void MainWindow::init() {
+MainWindow::MainWindow() {
+    initKeyMap();
+}
 
+void MainWindow::initKeyMap() {
+    _keyMap = {
+        {SDLK_Q, 1},
+        {SDLK_Z, 2},
+        {SDLK_S, 3},
+        {SDLK_E, 4},
+        {SDLK_D, 5},
+        {SDLK_F, 6},
+        {SDLK_T, 7},
+        {SDLK_G, 8},
+        {SDLK_Y, 9},
+        {SDLK_H, 10},
+        {SDLK_U, 11},
+        {SDLK_J, 12},
+    };
+}
+
+
+void MainWindow::init() {
     // Setup SDL
     if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD)) {
         SDL_Log("Error: SDL_Init(): %s\n", SDL_GetError());
@@ -33,13 +54,14 @@ void MainWindow::init() {
         return;
     }
     SDL_SetWindowPosition(
-            window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
     SDL_ShowWindow(window);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGuiIO &io = ImGui::GetIO();
+    (void) io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
@@ -55,18 +77,22 @@ void MainWindow::init() {
 void MainWindow::run() {
     const auto clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    bool done { false };
-    while (!done){
+    bool done{false};
+    while (!done) {
         auto frameStart = std::chrono::high_resolution_clock::now();
 
         SDL_Event event;
-        while (SDL_PollEvent(&event)){
+        while (SDL_PollEvent(&event)) {
             ImGui_ImplSDL3_ProcessEvent(&event);
             if (SDL_EVENT_QUIT == event.type)
                 done = true;
             if ((SDL_EVENT_WINDOW_CLOSE_REQUESTED == event.type)
                 && (SDL_GetWindowID(window) == event.window.windowID))
                 done = true;
+            else if (event.type == SDL_EVENT_KEY_DOWN)
+                processKey(event.key, true);
+            else if (event.type == SDL_EVENT_KEY_UP)
+                processKey(event.key, false);
         }
 
         // Start the Dear ImGui frame
@@ -141,3 +167,15 @@ void MainWindow::draw() {
     ImGui::End();
 }
 
+void MainWindow::processKey(const SDL_KeyboardEvent &event, const bool keyDown) {
+    auto it = _keyMap.find(event.key);
+
+    if (it != _keyMap.end()) {
+        int note = it->second;
+        if (keyDown) {
+            _parameters.note = note;
+        } else {
+            _parameters.note.reset();
+        }
+    }
+}
