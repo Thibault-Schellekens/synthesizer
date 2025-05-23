@@ -4,6 +4,7 @@
 
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
+#include <optional>
 
 enum class Waveform {
     SINE, SQUARE, SAW
@@ -20,6 +21,8 @@ struct Parameters {
     float filterResonance {0.0f};
     float delayTime {0.1f};
     float delayMix {0.0f};
+
+    std::optional<int> note;
 
 };
 
