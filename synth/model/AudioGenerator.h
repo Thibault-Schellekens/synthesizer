@@ -6,6 +6,7 @@
 #define AUDIOGENERATOR_H
 
 #include "AudioBuffer.h"
+#include "Enveloppe.h"
 #include "Oscillator.h"
 #include "ParametersManager.h"
 #include "portaudio.h"
@@ -31,6 +32,7 @@ private:
     AudioBuffer _audioBuffer;
     Oscillator _oscillator1;
     Oscillator _oscillator2;
+    Enveloppe _enveloppe;
 
 
 

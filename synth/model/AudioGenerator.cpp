@@ -66,6 +66,8 @@ void AudioGenerator::generateAudio(float *outputBuffer, unsigned long framesPerB
     _oscillator1.processAudioBuffer(_audioBuffer);
     _oscillator2.processAudioBuffer(_audioBuffer);
 
+    _enveloppe.processAudioBuffer(_audioBuffer, currentTimeInSeconds);
+
     for (unsigned long i = 0; i < framesPerBuffer; ++i) {
         *outputBuffer++ = _audioBuffer.buffer[i]; // canal gauche
         *outputBuffer++ = _audioBuffer.buffer[i]; // canal droit
@@ -81,9 +83,16 @@ void AudioGenerator::updateParameters() {
 
     _oscillator2.setEnabled(parameters.osc2Enabled);
 
+    _enveloppe.setAttackTime(parameters.attackTime);
+    _enveloppe.setReleaseTime(parameters.releaseTime);
+
     if (parameters.note.has_value()) {
+        _enveloppe.noteOn(currentTimeInSeconds);
+
         const float frequency = 220.0f * std::pow(2, (parameters.note.value() - 1) / 12.0);
         _oscillator1.setFrequency(frequency);
         _oscillator2.setFrequency(frequency);
+    } else {
+        _enveloppe.noteOff(currentTimeInSeconds);
     }
 }

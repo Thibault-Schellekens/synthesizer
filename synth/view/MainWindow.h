@@ -30,6 +30,8 @@ private:
 
     std::map<SDL_Keycode, int> _keyMap;
 
+    bool _noteKeyDown {false};
+
 
 };
 

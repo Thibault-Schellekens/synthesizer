@@ -15,8 +15,8 @@ struct Parameters {
     Waveform osc1Waveform {Waveform::SINE};
     float osc1FrequencyOffset {0.0f};
     bool osc2Enabled {true};
-    float attackTime {0.0f};
-    float releaseTime {0.0f};
+    float attackTime {0.5f};
+    float releaseTime {1.0f};
     float filterCutoff {20000.0f};
     float filterResonance {0.0f};
     float delayTime {0.1f};

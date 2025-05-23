@@ -27,7 +27,9 @@ add_executable(synth main.cpp
         model/Oscillator.h
         model/constants.h
         model/ParametersManager.cpp
-        model/ParametersManager.h)
+        model/ParametersManager.h
+        model/Enveloppe.cpp
+        model/Enveloppe.h)
 
 
 if (APPLE)

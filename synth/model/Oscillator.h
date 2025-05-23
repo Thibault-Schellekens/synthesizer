@@ -9,7 +9,7 @@
 
 class Oscillator {
 public:
-    Oscillator(Waveform waveform);
+    explicit Oscillator(Waveform waveform);
     void processAudioBuffer(AudioBuffer& audioBuffer);
 
     void setFrequency(float frequency);
