@@ -32,6 +32,9 @@ void Delay::setDelayTime(float delayTime) {
 
 void Delay::setDelayMix(float delayMix) {
     _delayMix = delayMix;
+
+    if (_delayMix <= 0.0f)
+        std::fill(_delayBuffer.buffer.begin(), _delayBuffer.buffer.end(), 0.0f);
 }
 
 void Delay::updateIndex() {
