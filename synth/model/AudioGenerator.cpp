@@ -67,6 +67,7 @@ void AudioGenerator::generateAudio(float *outputBuffer, unsigned long framesPerB
     _oscillator2.processAudioBuffer(_audioBuffer);
 
     _enveloppe.processAudioBuffer(_audioBuffer, currentTimeInSeconds);
+    _filter.processAudioBuffer(_audioBuffer);
 
     for (unsigned long i = 0; i < framesPerBuffer; ++i) {
         *outputBuffer++ = _audioBuffer.buffer[i]; // canal gauche
@@ -85,6 +86,9 @@ void AudioGenerator::updateParameters() {
 
     _enveloppe.setAttackTime(parameters.attackTime);
     _enveloppe.setReleaseTime(parameters.releaseTime);
+
+    _filter.setCutOff(parameters.filterCutoff);
+    _filter.setResonance(parameters.filterResonance);
 
     if (parameters.note.has_value()) {
         _enveloppe.noteOn(currentTimeInSeconds);

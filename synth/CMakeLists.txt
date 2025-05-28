@@ -29,7 +29,9 @@ add_executable(synth main.cpp
         model/ParametersManager.cpp
         model/ParametersManager.h
         model/Enveloppe.cpp
-        model/Enveloppe.h)
+        model/Enveloppe.h
+        model/Filter.cpp
+        model/Filter.h)
 
 
 if (APPLE)

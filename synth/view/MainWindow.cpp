@@ -151,13 +151,16 @@ void MainWindow::draw() {
     ImGui::SliderFloat("Delay Mix", &_parameters.delayMix, 0.0f, 1.0f);
 
     ImGui::NewLine();
+    //TODO: add button highlights
     for (int i = 1; i <= 12; ++i) {
         ImGui::SameLine();
         ImGui::Button(std::to_string(i).c_str());
 
         if (ImGui::IsItemActive()) {
             _parameters.note = i;
+            // Highlight the button
         }
+
         if (ImGui::IsItemDeactivated()) {
             _parameters.note .reset();
         }
