@@ -154,17 +154,27 @@ void MainWindow::draw() {
     //TODO: add button highlights
     for (int i = 1; i <= 12; ++i) {
         ImGui::SameLine();
+
+        bool isSelected = _parameters.note.has_value() && _parameters.note.value() == i;
+        if (isSelected) {
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.6f, 1.0f, 1.0f));
+        }
+
         ImGui::Button(std::to_string(i).c_str());
+
+        if (isSelected) {
+            ImGui::PopStyleColor(1);
+        }
 
         if (ImGui::IsItemActive()) {
             _parameters.note = i;
-            // Highlight the button
         }
 
         if (ImGui::IsItemDeactivated()) {
-            _parameters.note .reset();
+            _parameters.note.reset();
         }
     }
+
 
     if (_parameters.note.has_value()) {
         ImGui::Text("You pressed note: %d", _parameters.note.value());
