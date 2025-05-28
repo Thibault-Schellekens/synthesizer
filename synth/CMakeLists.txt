@@ -31,7 +31,9 @@ add_executable(synth main.cpp
         model/Enveloppe.cpp
         model/Enveloppe.h
         model/Filter.cpp
-        model/Filter.h)
+        model/Filter.h
+        model/Delay.cpp
+        model/Delay.h)
 
 
 if (APPLE)

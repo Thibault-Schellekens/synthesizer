@@ -1,0 +1,41 @@
+//
+// Created by schel.
+//
+
+#include "Delay.h"
+
+Delay::Delay() {
+    updateIndex();
+}
+
+void Delay::processAudioBuffer(AudioBuffer &audioBuffer) {
+    if (_delayMix <= 0.0f)
+        return;
+
+    for (int frame = 0; frame < Constants::FRAMES_PER_BUFFER; ++frame) {
+        float delayedSample = _delayBuffer.buffer[_readIndex];
+
+        float mixedSample = audioBuffer.buffer[frame] + (delayedSample * _delayMix);
+
+        audioBuffer.buffer[frame] = mixedSample;
+        _delayBuffer.buffer[_writeIndex] = mixedSample;
+
+        _readIndex = (_readIndex + 1) % _delayBuffer.buffer.size();
+        _writeIndex = (_writeIndex + 1) % _delayBuffer.buffer.size();
+    }
+}
+
+void Delay::setDelayTime(float delayTime) {
+    _delayTime = delayTime;
+    updateIndex();
+}
+
+void Delay::setDelayMix(float delayMix) {
+    _delayMix = delayMix;
+}
+
+void Delay::updateIndex() {
+    unsigned delaySamples = static_cast<int>(_delayTime * Constants::SAMPLE_RATE);
+
+    _writeIndex = (_readIndex + delaySamples) % _delayBuffer.buffer.size();
+}

@@ -6,6 +6,7 @@
 #define AUDIOGENERATOR_H
 
 #include "AudioBuffer.h"
+#include "Delay.h"
 #include "Enveloppe.h"
 #include "Filter.h"
 #include "Oscillator.h"
@@ -35,6 +36,7 @@ private:
     Oscillator _oscillator2;
     Enveloppe _enveloppe;
     Filter _filter;
+    Delay _delay;
 
 
 
