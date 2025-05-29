@@ -14,7 +14,7 @@ Oscillator::Oscillator(Waveform waveform) : _waveform(waveform) {
 void Oscillator::processAudioBuffer(AudioBuffer &audioBuffer) {
     if (!_enabled) return;
 
-    for (int frame = 0; frame < Constants::FRAMES_PER_BUFFER; ++frame) {
+    for (unsigned frame = 0; frame < Constants::FRAMES_PER_BUFFER; ++frame) {
         float sample{0.0f};
 
         switch (_waveform) {
@@ -36,21 +36,21 @@ void Oscillator::processAudioBuffer(AudioBuffer &audioBuffer) {
     }
 }
 
-void Oscillator::setFrequency(float frequency) {
+void Oscillator::setFrequency(const float frequency) {
     _frequency = frequency;
     setPhaseIncrement();
 }
 
-void Oscillator::setFrequencyOffset(float offset) {
+void Oscillator::setFrequencyOffset(const float offset) {
     _frequencyOffset = offset;
     setPhaseIncrement();
 }
 
-void Oscillator::setWaveform(Waveform waveform) {
+void Oscillator::setWaveform(const Waveform waveform) {
     _waveform = waveform;
 }
 
-void Oscillator::setEnabled(bool enabled) {
+void Oscillator::setEnabled(const bool enabled) {
     _enabled = enabled;
 }
 

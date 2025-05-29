@@ -10,7 +10,7 @@
 #include "constants.h"
 
 void Envelope::processAudioBuffer(AudioBuffer &audioBuffer) {
-    for (int frame = 0; frame < Constants::FRAMES_PER_BUFFER; ++frame) {
+    for (unsigned frame = 0; frame < Constants::FRAMES_PER_BUFFER; ++frame) {
         updateAmplitude();
         audioBuffer.buffer[frame] *= _amplitude;
     }
@@ -24,11 +24,11 @@ void Envelope::noteOff() {
         _stage = Stage::RELEASE;
 }
 
-void Envelope::setAttackTime(float attack) {
+void Envelope::setAttackTime(const float attack) {
     _attackTime = attack;
 }
 
-void Envelope::setReleaseTime(float release) {
+void Envelope::setReleaseTime(const float release) {
     _releaseTime = release;
 }
 

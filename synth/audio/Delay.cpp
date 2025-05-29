@@ -12,10 +12,10 @@ void Delay::processAudioBuffer(AudioBuffer &audioBuffer) {
     if (_delayMix <= 0.0f)
         return;
 
-    for (int frame = 0; frame < Constants::FRAMES_PER_BUFFER; ++frame) {
-        float delayedSample = _delayBuffer.buffer[_readIndex];
+    for (unsigned frame = 0; frame < Constants::FRAMES_PER_BUFFER; ++frame) {
+        const float delayedSample = _delayBuffer.buffer[_readIndex];
 
-        float mixedSample = audioBuffer.buffer[frame] + (delayedSample * _delayMix);
+        const float mixedSample = audioBuffer.buffer[frame] + (delayedSample * _delayMix);
 
         audioBuffer.buffer[frame] = mixedSample;
         _delayBuffer.buffer[_writeIndex] = mixedSample;
@@ -38,7 +38,7 @@ void Delay::setDelayMix(float delayMix) {
 }
 
 void Delay::updateIndex() {
-    unsigned delaySamples = static_cast<int>(_delayTime * Constants::SAMPLE_RATE);
+    const int delaySamples = static_cast<int>(_delayTime * Constants::SAMPLE_RATE);
 
     _writeIndex = (_readIndex + delaySamples) % _delayBuffer.buffer.size();
 }

@@ -33,8 +33,7 @@ void Filter::setCutOff(float cutoff) {
 }
 
 void Filter::setResonance(float resonance) {
-    _resonance = resonance;
-    std::clamp(resonance, 0.0f, 0.99f);
+    _resonance = std::clamp(resonance, 0.0f, 0.99f);
     updateInternParameters();
 }
 
