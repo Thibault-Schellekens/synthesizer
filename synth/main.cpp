@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "model/AudioGenerator.h"
+#include "audio/AudioGenerator.h"
 #include "model/ParametersManager.h"
 #include "view/MainWindow.h"
 

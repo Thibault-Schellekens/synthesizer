@@ -10,7 +10,7 @@
 #include "Envelope.h"
 #include "Filter.h"
 #include "Oscillator.h"
-#include "ParametersManager.h"
+#include "../model/ParametersManager.h"
 #include "portaudio.h"
 
 class AudioGenerator {

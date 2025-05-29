@@ -19,21 +19,21 @@ add_executable(synth main.cpp
         ./libraries/imgui/backends/imgui_impl_sdlrenderer3.cpp
         view/MainWindow.cpp
         view/MainWindow.h
-        model/AudioGenerator.cpp
-        model/AudioGenerator.h
+        audio/AudioGenerator.cpp
+        audio/AudioGenerator.h
         Parameters.h
-        model/AudioBuffer.h
-        model/Oscillator.cpp
-        model/Oscillator.h
-        model/constants.h
+        audio/AudioBuffer.h
+        audio/Oscillator.cpp
+        audio/Oscillator.h
+        audio/constants.h
         model/ParametersManager.cpp
         model/ParametersManager.h
-        model/Envelope.cpp
-        model/Envelope.h
-        model/Filter.cpp
-        model/Filter.h
-        model/Delay.cpp
-        model/Delay.h)
+        audio/Envelope.cpp
+        audio/Envelope.h
+        audio/Filter.cpp
+        audio/Filter.h
+        audio/Delay.cpp
+        audio/Delay.h)
 
 
 if (APPLE)
