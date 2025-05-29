@@ -180,7 +180,7 @@ void MainWindow::draw() {
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.6f, 1.0f, 1.0f));
         }
 
-        ImGui::Button(std::to_string(i).c_str());
+        ImGui::Button(std::to_string(i).c_str(), ImVec2(40, 40));
 
         if (isSelected) {
             ImGui::PopStyleColor(1);
