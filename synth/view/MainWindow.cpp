@@ -138,24 +138,40 @@ void MainWindow::draw() {
     ImGui::Begin("Synthesizer", nullptr, window_flags);
 
     ImGui::Checkbox("Oscillator 1", &_parameters.osc1Enabled);
+    ImGui::SameLine(150.0);
+    ImGui::Checkbox("Oscillator 2", &_parameters.osc2Enabled);
+
+    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+    ImGui::Separator();
+    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+
     int waveform = static_cast<int>(_parameters.osc1Waveform);
     if (ImGui::Combo("OSC1 Waveform", &waveform, "Sine\0Square\0Saw\0")) {
         _parameters.osc1Waveform = static_cast<Waveform>(waveform);
     }
     ImGui::SliderFloat("Freq Offset OSC1", &_parameters.osc1FrequencyOffset, -5.0f, 5.0f, "%.2f Hz");
 
-    ImGui::Checkbox("Oscillator 2", &_parameters.osc2Enabled);
+    ImGui::Dummy(ImVec2(0.0f, 10.0f));
 
     ImGui::SliderFloat("Attack", &_parameters.attackTime, 0.0f, 1.0f, "%.2f s");
     ImGui::SliderFloat("Release", &_parameters.releaseTime, 0.0f, 2.0f, "%.2f s");
 
+    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+
     ImGui::SliderFloat("Filter Cutoff", &_parameters.filterCutoff, 20.0f, 20000.0f, "%.0f Hz");
     ImGui::SliderFloat("Filter Resonance", &_parameters.filterResonance, 0.0f, 1.0f, "%.2f");
+
+    ImGui::Dummy(ImVec2(0.0f, 10.0f));
 
     ImGui::SliderFloat("Delay Time", &_parameters.delayTime, 0.1f, 2.0f, "%.2f s");
     ImGui::SliderFloat("Delay Mix", &_parameters.delayMix, 0.0f, 1.0f, "%.2f");
 
+    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+    ImGui::Separator();
+    ImGui::Dummy(ImVec2(0.0f, 10.0f));
+
     ImGui::NewLine();
+
     for (int i = 1; i <= 12; ++i) {
         ImGui::SameLine();
 
