@@ -151,7 +151,6 @@ void MainWindow::draw() {
     ImGui::SliderFloat("Delay Mix", &_parameters.delayMix, 0.0f, 1.0f);
 
     ImGui::NewLine();
-    //TODO: add button highlights
     for (int i = 1; i <= 12; ++i) {
         ImGui::SameLine();
 
@@ -173,11 +172,6 @@ void MainWindow::draw() {
         if (ImGui::IsItemDeactivated()) {
             _parameters.note.reset();
         }
-    }
-
-
-    if (_parameters.note.has_value()) {
-        ImGui::Text("You pressed note: %d", _parameters.note.value());
     }
 
     _parametersManager.setParameters(_parameters);

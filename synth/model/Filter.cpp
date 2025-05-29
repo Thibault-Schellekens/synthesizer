@@ -4,6 +4,7 @@
 
 #include "Filter.h"
 #include <cmath>
+#include <bits/stl_algo.h>
 
 #include "constants.h"
 
@@ -33,11 +34,12 @@ void Filter::setCutOff(float cutoff) {
 
 void Filter::setResonance(float resonance) {
     _resonance = resonance;
+    std::clamp(resonance, 0.0f, 0.99f);
     updateInternParameters();
 }
 
 void Filter::updateInternParameters() {
-    float q = 0.5f / (1.00001f - _resonance);
+    float q = 0.5f / (1.0f - _resonance);
     float omega = 2.0f * M_PI * _cutoff / Constants::SAMPLE_RATE;
 
     float alpha = sinf(omega) / (2.0f * q);

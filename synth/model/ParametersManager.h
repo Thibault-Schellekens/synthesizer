@@ -6,7 +6,7 @@
 #define PARAMETERSMANAGER_H
 #include <mutex>
 
-#include "Parameters.h"
+#include "../Parameters.h"
 
 class ParametersManager {
 public:

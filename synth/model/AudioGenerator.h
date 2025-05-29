@@ -15,7 +15,7 @@
 
 class AudioGenerator {
 public:
-    AudioGenerator(ParametersManager& parametersManager);
+    explicit AudioGenerator(ParametersManager& parametersManager);
     void init();
 
 private:
@@ -37,8 +37,6 @@ private:
     Enveloppe _enveloppe;
     Filter _filter;
     Delay _delay;
-
-
 
 };
 

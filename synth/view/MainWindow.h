@@ -8,7 +8,7 @@
 #include <map>
 #include <SDL3/SDL.h>
 
-#include "../model/Parameters.h"
+#include "../Parameters.h"
 #include "../model/ParametersManager.h"
 
 class MainWindow {

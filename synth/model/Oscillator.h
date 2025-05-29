@@ -5,7 +5,7 @@
 #ifndef OSCILLATOR_H
 #define OSCILLATOR_H
 #include "AudioBuffer.h"
-#include "Parameters.h"
+#include "../Parameters.h"
 
 class Oscillator {
 public:
