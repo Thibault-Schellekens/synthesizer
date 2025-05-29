@@ -13,26 +13,22 @@ enum class Stage {
     OFF
 };
 
-class Enveloppe {
+class Envelope {
 public:
-    void processAudioBuffer(AudioBuffer& audioBuffer, double currentTime);
-    void noteOn(double currentTime);
-    void noteOff(double currentTime);
+    void processAudioBuffer(AudioBuffer& audioBuffer);
+    void noteOn();
+    void noteOff();
 
     void setAttackTime(float attack);
     void setReleaseTime(float release);
 
 private:
+    void updateAmplitude();
+
     float _attackTime {0.5f};
     float _releaseTime {1.0f};
     float _amplitude {0.0f};
     Stage _stage {Stage::OFF};
-
-    double _triggerOnTime {0.0};
-    double _triggerOffTime {0.0};
-
-    void updateAmplitude();
-    void updateStage(double time);
 
 };
 

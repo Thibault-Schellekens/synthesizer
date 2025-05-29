@@ -7,7 +7,7 @@
 
 #include "AudioBuffer.h"
 #include "Delay.h"
-#include "Enveloppe.h"
+#include "Envelope.h"
 #include "Filter.h"
 #include "Oscillator.h"
 #include "ParametersManager.h"
@@ -34,7 +34,7 @@ private:
     AudioBuffer _audioBuffer;
     Oscillator _oscillator1;
     Oscillator _oscillator2;
-    Enveloppe _enveloppe;
+    Envelope _enveloppe;
     Filter _filter;
     Delay _delay;
 

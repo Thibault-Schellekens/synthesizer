@@ -2,42 +2,37 @@
 // Created by schel.
 //
 
-#include "Enveloppe.h"
+#include "Envelope.h"
 
 #include <iostream>
 #include <ostream>
 
 #include "constants.h"
 
-void Enveloppe::processAudioBuffer(AudioBuffer &audioBuffer, double currentTime) {
-    updateStage(currentTime);
-
+void Envelope::processAudioBuffer(AudioBuffer &audioBuffer) {
     for (int frame = 0; frame < Constants::FRAMES_PER_BUFFER; ++frame) {
         updateAmplitude();
-
         audioBuffer.buffer[frame] *= _amplitude;
     }
 }
 
-void Enveloppe::noteOn(double currentTime) {
+void Envelope::noteOn() {
         _stage = Stage::ATTACK;
-        _triggerOnTime = currentTime;
 }
 
-void Enveloppe::noteOff(double currentTime) {
+void Envelope::noteOff() {
         _stage = Stage::RELEASE;
-        _triggerOffTime = currentTime;
 }
 
-void Enveloppe::setAttackTime(float attack) {
+void Envelope::setAttackTime(float attack) {
     _attackTime = attack;
 }
 
-void Enveloppe::setReleaseTime(float release) {
+void Envelope::setReleaseTime(float release) {
     _releaseTime = release;
 }
 
-void Enveloppe::updateAmplitude() {
+void Envelope::updateAmplitude() {
     switch (_stage) {
         case Stage::ATTACK:
             _amplitude += 1.0f / (Constants::SAMPLE_RATE * _attackTime);
@@ -59,13 +54,5 @@ void Enveloppe::updateAmplitude() {
         case Stage::OFF:
             _amplitude = 0.0f;
             break;
-    }
-}
-
-void Enveloppe::updateStage(double time) {
-    if (_stage == Stage::ATTACK && time - _triggerOnTime > _attackTime) {
-        _stage = Stage::SUSTAIN;
-    } else if (_stage == Stage::RELEASE && time - _triggerOffTime > _releaseTime) {
-        _stage = Stage::OFF;
     }
 }

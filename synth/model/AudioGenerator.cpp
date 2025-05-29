@@ -66,7 +66,7 @@ void AudioGenerator::generateAudio(float *outputBuffer, unsigned long framesPerB
     _oscillator1.processAudioBuffer(_audioBuffer);
     _oscillator2.processAudioBuffer(_audioBuffer);
 
-    _enveloppe.processAudioBuffer(_audioBuffer, currentTimeInSeconds);
+    _enveloppe.processAudioBuffer(_audioBuffer);
     _filter.processAudioBuffer(_audioBuffer);
     _delay.processAudioBuffer(_audioBuffer);
 
@@ -95,12 +95,12 @@ void AudioGenerator::updateParameters() {
     _delay.setDelayMix(parameters.delayMix);
 
     if (parameters.note.has_value()) {
-        _enveloppe.noteOn(currentTimeInSeconds);
+        _enveloppe.noteOn();
 
         const float frequency = 220.0f * std::pow(2, (parameters.note.value() - 1) / 12.0);
         _oscillator1.setFrequency(frequency);
         _oscillator2.setFrequency(frequency);
     } else {
-        _enveloppe.noteOff(currentTimeInSeconds);
+        _enveloppe.noteOff();
     }
 }

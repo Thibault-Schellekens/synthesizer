@@ -28,8 +28,8 @@ add_executable(synth main.cpp
         model/constants.h
         model/ParametersManager.cpp
         model/ParametersManager.h
-        model/Enveloppe.cpp
-        model/Enveloppe.h
+        model/Envelope.cpp
+        model/Envelope.h
         model/Filter.cpp
         model/Filter.h
         model/Delay.cpp
