@@ -71,8 +71,8 @@ void AudioGenerator::generateAudio(float *outputBuffer, unsigned long framesPerB
     _delay.processAudioBuffer(_audioBuffer);
 
     for (unsigned long i = 0; i < framesPerBuffer; ++i) {
-        *outputBuffer++ = _audioBuffer.buffer[i]; // canal gauche
-        *outputBuffer++ = _audioBuffer.buffer[i]; // canal droit
+        *outputBuffer++ = _audioBuffer.buffer[i] * 0.2f; // canal gauche
+        *outputBuffer++ = _audioBuffer.buffer[i] * 0.2f; // canal droit
     }
 }
 
